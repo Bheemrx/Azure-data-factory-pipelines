@@ -1,0 +1,15 @@
+{
+	"name": "adffundamentalsardh",
+	"properties": {
+		"trustModeClaimForMi": {
+			"value": "Disabled",
+			"editable": true
+		}
+	},
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "0044ebc4-a9de-43fc-ba5f-94582f247ca2",
+		"tenantId": "ffafeaf1-3def-4c52-86c2-e5763c1b02b3"
+	}
+}
