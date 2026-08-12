@@ -1,0 +1,30 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "adffundamentalsardh"
+		},
+		"AzureDataLakeStorage1_accountKey": {
+			"value": ""
+		},
+		"GitHub1_credential": {
+			"value": ""
+		},
+		"AzureDataLakeStorage1_properties_typeProperties_url": {
+			"value": "https://ardhendusa.dfs.core.windows.net/"
+		},
+		"GitHub1_properties_typeProperties_username": {
+			"value": "ardhendumahathaofficial@gmail.com"
+		},
+		"httpgithub_properties_typeProperties_url": {
+			"value": "https://raw.githubusercontent.com"
+		},
+		"containerUri": {
+			"value": ""
+		},
+		"containerSasToken": {
+			"value": ""
+		}
+	}
+}
