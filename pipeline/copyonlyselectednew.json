@@ -126,7 +126,10 @@
 												"referenceName": "copyselectedsinkdataset",
 												"type": "DatasetReference",
 												"parameters": {
-													"parameter_name": "@tem().name"
+													"parameter_name": {
+														"value": "@item().name",
+														"type": "Expression"
+													}
 												}
 											}
 										]
