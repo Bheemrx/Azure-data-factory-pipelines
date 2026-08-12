@@ -1,9 +1,11 @@
 {
-	"name": "copyselected",
+	"name": "copyonlyselectednew",
 	"properties": {
+		"description": "this will copy only the selected file from a datalake",
 		"activities": [
 			{
-				"name": "Get Metadata1",
+				"name": "Get Metadata",
+				"description": "This will get the metadata of the folder",
 				"type": "GetMetadata",
 				"dependsOn": [],
 				"policy": {
@@ -16,7 +18,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"dataset": {
-						"referenceName": "DelimitedText3",
+						"referenceName": "folder_metadata",
 						"type": "DatasetReference"
 					},
 					"fieldList": [
@@ -33,11 +35,12 @@
 				}
 			},
 			{
-				"name": "ForEach1",
+				"name": "ForEachFILE",
+				"description": "It will iterate around each file on the folder",
 				"type": "ForEach",
 				"dependsOn": [
 					{
-						"activity": "Get Metadata1",
+						"activity": "Get Metadata",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -46,24 +49,26 @@
 				"userProperties": [],
 				"typeProperties": {
 					"items": {
-						"value": "@activity('Get Metadata1').output.childItems",
+						"value": "@activity('Get Metadata').output.childItems",
 						"type": "Expression"
 					},
 					"isSequential": true,
 					"activities": [
 						{
-							"name": "If file matches",
+							"name": "If Condition1",
+							"description": "it will check the file name matches or not",
 							"type": "IfCondition",
 							"dependsOn": [],
 							"userProperties": [],
 							"typeProperties": {
 								"expression": {
-									"value": "@startswith(item().name,'Fact_Sales_1')",
+									"value": "@startswith(item().name,'Fact')",
 									"type": "Expression"
 								},
 								"ifTrueActivities": [
 									{
-										"name": "Copy fact1 data",
+										"name": "Copydataselected",
+										"description": "this will copy the selected file",
 										"type": "Copy",
 										"dependsOn": [],
 										"policy": {
@@ -109,22 +114,19 @@
 										},
 										"inputs": [
 											{
-												"referenceName": "paramsourcecsv",
+												"referenceName": "selectedcopydataset",
 												"type": "DatasetReference",
 												"parameters": {
-													"p_filename": {
-														"value": "@item().name",
-														"type": "Expression"
-													}
+													"paramater_name": "@item().name"
 												}
 											}
 										],
 										"outputs": [
 											{
-												"referenceName": "DelimitedText4",
+												"referenceName": "copyselectedsinkdataset",
 												"type": "DatasetReference",
 												"parameters": {
-													"p_filename": {
+													"parameter_name": {
 														"value": "@item().name",
 														"type": "Expression"
 													}
@@ -139,11 +141,12 @@
 				}
 			},
 			{
-				"name": "Data transformation",
+				"name": "Dataflowcopyselected",
+				"description": "used to transform the copied data",
 				"type": "ExecuteDataFlow",
 				"dependsOn": [
 					{
-						"activity": "ForEach1",
+						"activity": "ForEachFILE",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -159,7 +162,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"dataflow": {
-						"referenceName": "transformcsv",
+						"referenceName": "dataflow1",
 						"type": "DataFlowReference"
 					},
 					"compute": {
