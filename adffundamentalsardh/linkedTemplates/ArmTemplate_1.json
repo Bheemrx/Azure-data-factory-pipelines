@@ -11,6 +11,10 @@
 			"type": "string",
 			"defaultValue": "/subscriptions/1912182d-cf80-4e8d-b970-71dcd2b7b4db/resourceGroups/azurefundamentals/providers/Microsoft.Storage/storageAccounts/ardhendusa"
 		},
+		"triggerx_properties_pipeline1_parameters_filename": {
+			"type": "string",
+			"defaultValue": "@triggerBody().fileName"
+		},
 		"triggerx_properties_typeProperties_scope": {
 			"type": "string",
 			"defaultValue": "/subscriptions/1912182d-cf80-4e8d-b970-71dcd2b7b4db/resourceGroups/azurefundamentals/providers/Microsoft.Storage/storageAccounts/ardhendusa"
@@ -267,7 +271,10 @@
 									"type": "AzureBlobFSReadSettings",
 									"recursive": true,
 									"wildcardFolderPath": "ardhendu/bheem",
-									"wildcardFileName": "*.csv",
+									"wildcardFileName": {
+										"value": "@pipeline().parameters.filename",
+										"type": "Expression"
+									},
 									"enablePartitionDiscovery": false
 								},
 								"formatSettings": {
@@ -346,7 +353,10 @@
 							"storeSettings": {
 								"type": "AzureBlobFSReadSettings",
 								"recursive": true,
-								"wildcardFileName": ".csv",
+								"wildcardFileName": {
+									"value": "@pipeline().parameters.filename",
+									"type": "Expression"
+								},
 								"enablePartitionDiscovery": false
 							}
 						}
@@ -354,6 +364,11 @@
 				],
 				"policy": {
 					"elapsedTimeMetric": {}
+				},
+				"parameters": {
+					"filename": {
+						"type": "string"
+					}
 				},
 				"annotations": []
 			},
@@ -1308,7 +1323,9 @@
 							"referenceName": "pipeline1",
 							"type": "PipelineReference"
 						},
-						"parameters": {}
+						"parameters": {
+							"filename": "[parameters('triggerx_properties_pipeline1_parameters_filename')]"
+						}
 					}
 				],
 				"type": "BlobEventsTrigger",

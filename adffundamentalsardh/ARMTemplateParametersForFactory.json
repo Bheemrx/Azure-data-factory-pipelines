@@ -23,6 +23,9 @@
 		"storage trigger_properties_typeProperties_scope": {
 			"value": "/subscriptions/1912182d-cf80-4e8d-b970-71dcd2b7b4db/resourceGroups/azurefundamentals/providers/Microsoft.Storage/storageAccounts/ardhendusa"
 		},
+		"triggerx_properties_pipeline1_parameters_filename": {
+			"value": "@triggerBody().fileName"
+		},
 		"triggerx_properties_typeProperties_scope": {
 			"value": "/subscriptions/1912182d-cf80-4e8d-b970-71dcd2b7b4db/resourceGroups/azurefundamentals/providers/Microsoft.Storage/storageAccounts/ardhendusa"
 		}
