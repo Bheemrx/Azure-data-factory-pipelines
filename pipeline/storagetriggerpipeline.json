@@ -84,7 +84,14 @@
 						"referenceName": "deletesourceblob",
 						"type": "DatasetReference"
 					},
-					"enableLogging": false,
+					"logStorageSettings": {
+						"linkedServiceName": {
+							"referenceName": "AzureDataLakeStorage1",
+							"type": "LinkedServiceReference"
+						},
+						"path": "destination/deleted file logs"
+					},
+					"enableLogging": true,
 					"storeSettings": {
 						"type": "AzureBlobFSReadSettings",
 						"recursive": true,
