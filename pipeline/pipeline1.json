@@ -21,7 +21,10 @@
 							"type": "AzureBlobFSReadSettings",
 							"recursive": true,
 							"wildcardFolderPath": "ardhendu/bheem",
-							"wildcardFileName": "*.csv",
+							"wildcardFileName": {
+								"value": "@pipeline().parameters.filename",
+								"type": "Expression"
+							},
 							"enablePartitionDiscovery": false
 						},
 						"formatSettings": {
@@ -103,6 +106,12 @@
 				}
 			}
 		],
+		"parameters": {
+			"filename": {
+				"type": "string",
+				"defaultValue": "@triggerBody.filename"
+			}
+		},
 		"annotations": []
 	}
 }
