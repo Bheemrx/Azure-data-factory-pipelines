@@ -1,0 +1,24 @@
+{
+	"name": "storage trigger",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Started",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "pipeline1",
+					"type": "PipelineReference"
+				}
+			}
+		],
+		"type": "BlobEventsTrigger",
+		"typeProperties": {
+			"blobPathBeginsWith": "/files/blobs/ardhendu/bheem",
+			"ignoreEmptyBlobs": true,
+			"scope": "/subscriptions/1912182d-cf80-4e8d-b970-71dcd2b7b4db/resourceGroups/azurefundamentals/providers/Microsoft.Storage/storageAccounts/ardhendusa",
+			"events": [
+				"Microsoft.Storage.BlobCreated"
+			]
+		}
+	}
+}
