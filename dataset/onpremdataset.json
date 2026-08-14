@@ -1,0 +1,22 @@
+{
+	"name": "onpremdataset",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_onprem",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "FileServerLocation",
+				"fileName": "Fact_Sales_2.csv"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": []
+	}
+}
