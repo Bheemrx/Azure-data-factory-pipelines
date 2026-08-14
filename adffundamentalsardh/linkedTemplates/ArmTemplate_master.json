@@ -31,9 +31,13 @@
 			"type": "string",
 			"defaultValue": "/subscriptions/1912182d-cf80-4e8d-b970-71dcd2b7b4db/resourceGroups/azurefundamentals/providers/Microsoft.Storage/storageAccounts/ardhendusa"
 		},
-		"triggerx_properties_pipeline1_parameters_filename": {
+		"triggermaster_properties_pipelinemaster_parameters_filename": {
 			"type": "string",
 			"defaultValue": "@triggerBody().fileName"
+		},
+		"triggermaster_properties_typeProperties_scope": {
+			"type": "string",
+			"defaultValue": "/subscriptions/1912182d-cf80-4e8d-b970-71dcd2b7b4db/resourceGroups/azurefundamentals/providers/Microsoft.Storage/storageAccounts/ardhendusa"
 		},
 		"triggerx_properties_typeProperties_scope": {
 			"type": "string",
@@ -80,6 +84,9 @@
 					},
 					"httpgithub_properties_typeProperties_url": {
 						"value": "[parameters('httpgithub_properties_typeProperties_url')]"
+					},
+					"triggerx_properties_typeProperties_scope": {
+						"value": "[parameters('triggerx_properties_typeProperties_scope')]"
 					}
 				}
 			},
@@ -102,11 +109,11 @@
 					"storage trigger_properties_typeProperties_scope": {
 						"value": "[parameters('storage trigger_properties_typeProperties_scope')]"
 					},
-					"triggerx_properties_pipeline1_parameters_filename": {
-						"value": "[parameters('triggerx_properties_pipeline1_parameters_filename')]"
+					"triggermaster_properties_pipelinemaster_parameters_filename": {
+						"value": "[parameters('triggermaster_properties_pipelinemaster_parameters_filename')]"
 					},
-					"triggerx_properties_typeProperties_scope": {
-						"value": "[parameters('triggerx_properties_typeProperties_scope')]"
+					"triggermaster_properties_typeProperties_scope": {
+						"value": "[parameters('triggermaster_properties_typeProperties_scope')]"
 					}
 				}
 			},

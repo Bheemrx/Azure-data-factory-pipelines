@@ -11,11 +11,11 @@
 			"type": "string",
 			"defaultValue": "/subscriptions/1912182d-cf80-4e8d-b970-71dcd2b7b4db/resourceGroups/azurefundamentals/providers/Microsoft.Storage/storageAccounts/ardhendusa"
 		},
-		"triggerx_properties_pipeline1_parameters_filename": {
+		"triggermaster_properties_pipelinemaster_parameters_filename": {
 			"type": "string",
 			"defaultValue": "@triggerBody().fileName"
 		},
-		"triggerx_properties_typeProperties_scope": {
+		"triggermaster_properties_typeProperties_scope": {
 			"type": "string",
 			"defaultValue": "/subscriptions/1912182d-cf80-4e8d-b970-71dcd2b7b4db/resourceGroups/azurefundamentals/providers/Microsoft.Storage/storageAccounts/ardhendusa"
 		}
@@ -24,6 +24,32 @@
 		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
 	},
 	"resources": [
+		{
+			"name": "[concat(parameters('factoryName'), '/dataflowssourcedataset')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureDataLakeStorage1",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"folderPath": "csvfilenew",
+						"fileSystem": "destination"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": []
+			},
+			"dependsOn": []
+		},
 		{
 			"name": "[concat(parameters('factoryName'), '/datasetcopyselected')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
@@ -1280,6 +1306,74 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/pipelinemaster')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Executepipeline1",
+						"type": "ExecutePipeline",
+						"dependsOn": [],
+						"policy": {
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"pipeline": {
+								"referenceName": "pipeline1",
+								"type": "PipelineReference"
+							},
+							"waitOnCompletion": true,
+							"parameters": {
+								"filename": {
+									"value": "@pipeline().parameters.filename",
+									"type": "Expression"
+								}
+							}
+						}
+					},
+					{
+						"name": "Executepipelinegithubsa",
+						"type": "ExecutePipeline",
+						"dependsOn": [
+							{
+								"activity": "Executepipeline1",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"pipeline": {
+								"referenceName": "pipelinegithubsa",
+								"type": "PipelineReference"
+							},
+							"waitOnCompletion": true,
+							"parameters": {}
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"parameters": {
+					"filename": {
+						"type": "string"
+					}
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/pipelines/pipeline1')]",
+				"[concat(variables('factoryId'), '/pipelines/pipelinegithubsa')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/storage trigger')]",
 			"type": "Microsoft.DataFactory/factories/triggers",
 			"apiVersion": "2018-06-01",
@@ -1311,7 +1405,7 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/triggerx')]",
+			"name": "[concat(parameters('factoryName'), '/triggermaster')]",
 			"type": "Microsoft.DataFactory/factories/triggers",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -1320,11 +1414,11 @@
 				"pipelines": [
 					{
 						"pipelineReference": {
-							"referenceName": "pipeline1",
+							"referenceName": "pipelinemaster",
 							"type": "PipelineReference"
 						},
 						"parameters": {
-							"filename": "[parameters('triggerx_properties_pipeline1_parameters_filename')]"
+							"filename": "[parameters('triggermaster_properties_pipelinemaster_parameters_filename')]"
 						}
 					}
 				],
@@ -1333,14 +1427,14 @@
 					"blobPathBeginsWith": "/files/blobs/ardhendu/bheem",
 					"blobPathEndsWith": ".csv",
 					"ignoreEmptyBlobs": true,
-					"scope": "[parameters('triggerx_properties_typeProperties_scope')]",
+					"scope": "[parameters('triggermaster_properties_typeProperties_scope')]",
 					"events": [
 						"Microsoft.Storage.BlobCreated"
 					]
 				}
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/pipelines/pipeline1')]"
+				"[concat(variables('factoryId'), '/pipelines/pipelinemaster')]"
 			]
 		}
 	]
