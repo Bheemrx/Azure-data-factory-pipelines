@@ -15,6 +15,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'credential' of 'GitHub1'"
 		},
+		"ls_onprem_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'ls_onprem'"
+		},
 		"AzureDataLakeStorage1_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://ardhendusa.dfs.core.windows.net/"
@@ -26,6 +30,14 @@
 		"httpgithub_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://raw.githubusercontent.com"
+		},
+		"ls_onprem_properties_typeProperties_host": {
+			"type": "string",
+			"defaultValue": "D:\\files"
+		},
+		"ls_onprem_properties_typeProperties_userId": {
+			"type": "string",
+			"defaultValue": "ardhendu.mahatha123@gmail.com"
 		},
 		"storage trigger_properties_typeProperties_scope": {
 			"type": "string",
@@ -106,6 +118,35 @@
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
 					},
+					"ls_onprem_password": {
+						"value": "[parameters('ls_onprem_password')]"
+					},
+					"ls_onprem_properties_typeProperties_host": {
+						"value": "[parameters('ls_onprem_properties_typeProperties_host')]"
+					},
+					"ls_onprem_properties_typeProperties_userId": {
+						"value": "[parameters('ls_onprem_properties_typeProperties_userId')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'adffundamentalsardh_ArmTemplate_0')]"
+			]
+		},
+		{
+			"name": "adffundamentalsardh_ArmTemplate_2",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2024-03-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_2.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
 					"storage trigger_properties_typeProperties_scope": {
 						"value": "[parameters('storage trigger_properties_typeProperties_scope')]"
 					},
@@ -118,7 +159,7 @@
 				}
 			},
 			"dependsOn": [
-				"[resourceId('Microsoft.Resources/deployments', 'adffundamentalsardh_ArmTemplate_0')]"
+				"[resourceId('Microsoft.Resources/deployments', 'adffundamentalsardh_ArmTemplate_1')]"
 			]
 		}
 	]

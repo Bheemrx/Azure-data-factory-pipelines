@@ -11,6 +11,9 @@
 		"GitHub1_credential": {
 			"value": ""
 		},
+		"ls_onprem_password": {
+			"value": ""
+		},
 		"AzureDataLakeStorage1_properties_typeProperties_url": {
 			"value": "https://ardhendusa.dfs.core.windows.net/"
 		},
@@ -19,6 +22,12 @@
 		},
 		"httpgithub_properties_typeProperties_url": {
 			"value": "https://raw.githubusercontent.com"
+		},
+		"ls_onprem_properties_typeProperties_host": {
+			"value": "D:\\files"
+		},
+		"ls_onprem_properties_typeProperties_userId": {
+			"value": "ardhendu.mahatha123@gmail.com"
 		},
 		"storage trigger_properties_typeProperties_scope": {
 			"value": "/subscriptions/1912182d-cf80-4e8d-b970-71dcd2b7b4db/resourceGroups/azurefundamentals/providers/Microsoft.Storage/storageAccounts/ardhendusa"
