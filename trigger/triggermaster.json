@@ -8,6 +8,9 @@
 				"pipelineReference": {
 					"referenceName": "pipelinemaster",
 					"type": "PipelineReference"
+				},
+				"parameters": {
+					"filename": "@triggerBody().fileName"
 				}
 			}
 		],
