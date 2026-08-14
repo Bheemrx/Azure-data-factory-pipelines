@@ -15,7 +15,13 @@
 						"referenceName": "pipeline1",
 						"type": "PipelineReference"
 					},
-					"waitOnCompletion": true
+					"waitOnCompletion": true,
+					"parameters": {
+						"filename": {
+							"value": "@pipeline().parameters.filename",
+							"type": "Expression"
+						}
+					}
 				}
 			},
 			{
