@@ -127,7 +127,7 @@
 									"referenceName": "ds_onprem_src_param",
 									"type": "DatasetReference",
 									"parameters": {
-										"": {
+										"file_name": {
 											"value": "@item().filename",
 											"type": "Expression"
 										}
