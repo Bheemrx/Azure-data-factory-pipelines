@@ -1,5 +1,5 @@
 {
-	"name": "DelimitedText12",
+	"name": "DelimitedText14",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "AzureDataLakeStorage2",
@@ -10,7 +10,8 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"fileSystem": "copyselected"
+				"fileName": "customers",
+				"fileSystem": "files"
 			},
 			"columnDelimiter": ",",
 			"escapeChar": "\\",
