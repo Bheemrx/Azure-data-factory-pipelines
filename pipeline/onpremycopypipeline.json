@@ -111,8 +111,11 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "copyonpremdATASET",
-						"type": "DatasetReference"
+						"referenceName": "ds_onprem_src_param",
+						"type": "DatasetReference",
+						"parameters": {
+							"p_filename": "anything"
+						}
 					}
 				],
 				"outputs": [
