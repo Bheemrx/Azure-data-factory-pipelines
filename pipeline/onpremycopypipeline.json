@@ -8,6 +8,10 @@
 				"dependsOn": [],
 				"userProperties": [],
 				"typeProperties": {
+					"items": {
+						"value": "@pipeline().parameters.files",
+						"type": "Expression"
+					},
 					"isSequential": false,
 					"batchCount": 50,
 					"activities": [
@@ -123,7 +127,7 @@
 									"referenceName": "ds_onprem_src_param",
 									"type": "DatasetReference",
 									"parameters": {
-										"p_filename": {
+										"": {
 											"value": "@item().filename",
 											"type": "Expression"
 										}
@@ -161,6 +165,15 @@
 						"filename": "DimFlight.csv"
 					}
 				]
+			},
+			"p_mapping_flight": {
+				"type": "object"
+			},
+			"p_mapping_passenger": {
+				"type": "object"
+			},
+			"p_mapping_airlines": {
+				"type": "object"
 			}
 		},
 		"annotations": []
