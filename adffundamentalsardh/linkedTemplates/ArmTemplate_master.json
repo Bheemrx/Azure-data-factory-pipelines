@@ -11,6 +11,14 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'accountKey' of 'AzureDataLakeStorage1'"
 		},
+		"AzureDataLakeStorage2_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'AzureDataLakeStorage2'"
+		},
+		"AzureSqlDatabase1_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'AzureSqlDatabase1'"
+		},
 		"GitHub1_credential": {
 			"type": "secureString",
 			"metadata": "Secure string for 'credential' of 'GitHub1'"
@@ -27,9 +35,29 @@
 			"type": "string",
 			"defaultValue": "https://ardhendusa.dfs.core.windows.net/"
 		},
+		"AzureDataLakeStorage2_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://ardhendusa.dfs.core.windows.net/"
+		},
+		"AzureSqlDatabase1_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "adfsqldbbheem.database.windows.net"
+		},
+		"AzureSqlDatabase1_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "adfsqldb"
+		},
+		"AzureSqlDatabase1_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "Ardhendu"
+		},
 		"GitHub1_properties_typeProperties_username": {
 			"type": "string",
 			"defaultValue": "ardhendumahathaofficial@gmail.com"
+		},
+		"HttpServer1_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://raw.githubusercontent.com"
 		},
 		"ONPREMLINKED2_properties_typeProperties_host": {
 			"type": "string",
@@ -40,6 +68,10 @@
 			"defaultValue": "ardhendu.mahatha123@gmail.com"
 		},
 		"httpgithub_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://raw.githubusercontent.com"
+		},
+		"linkedgithub_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://raw.githubusercontent.com"
 		},
@@ -97,17 +129,41 @@
 					"AzureDataLakeStorage1_accountKey": {
 						"value": "[parameters('AzureDataLakeStorage1_accountKey')]"
 					},
+					"AzureDataLakeStorage2_accountKey": {
+						"value": "[parameters('AzureDataLakeStorage2_accountKey')]"
+					},
+					"AzureSqlDatabase1_password": {
+						"value": "[parameters('AzureSqlDatabase1_password')]"
+					},
 					"GitHub1_credential": {
 						"value": "[parameters('GitHub1_credential')]"
 					},
 					"AzureDataLakeStorage1_properties_typeProperties_url": {
 						"value": "[parameters('AzureDataLakeStorage1_properties_typeProperties_url')]"
 					},
+					"AzureDataLakeStorage2_properties_typeProperties_url": {
+						"value": "[parameters('AzureDataLakeStorage2_properties_typeProperties_url')]"
+					},
+					"AzureSqlDatabase1_properties_typeProperties_server": {
+						"value": "[parameters('AzureSqlDatabase1_properties_typeProperties_server')]"
+					},
+					"AzureSqlDatabase1_properties_typeProperties_database": {
+						"value": "[parameters('AzureSqlDatabase1_properties_typeProperties_database')]"
+					},
+					"AzureSqlDatabase1_properties_typeProperties_userName": {
+						"value": "[parameters('AzureSqlDatabase1_properties_typeProperties_userName')]"
+					},
 					"GitHub1_properties_typeProperties_username": {
 						"value": "[parameters('GitHub1_properties_typeProperties_username')]"
 					},
+					"HttpServer1_properties_typeProperties_url": {
+						"value": "[parameters('HttpServer1_properties_typeProperties_url')]"
+					},
 					"httpgithub_properties_typeProperties_url": {
 						"value": "[parameters('httpgithub_properties_typeProperties_url')]"
+					},
+					"linkedgithub_properties_typeProperties_url": {
+						"value": "[parameters('linkedgithub_properties_typeProperties_url')]"
 					},
 					"triggerx_properties_typeProperties_scope": {
 						"value": "[parameters('triggerx_properties_typeProperties_scope')]"
@@ -124,6 +180,26 @@
 				"mode": "incremental",
 				"templateLink": {
 					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_1.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'adffundamentalsardh_ArmTemplate_0')]"
+			]
+		},
+		{
+			"name": "adffundamentalsardh_ArmTemplate_2",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2024-03-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_2.json', parameters('containerSasToken'))]",
 					"contentVersion": "1.0.0.0"
 				},
 				"parameters": {
@@ -151,17 +227,17 @@
 				}
 			},
 			"dependsOn": [
-				"[resourceId('Microsoft.Resources/deployments', 'adffundamentalsardh_ArmTemplate_0')]"
+				"[resourceId('Microsoft.Resources/deployments', 'adffundamentalsardh_ArmTemplate_1')]"
 			]
 		},
 		{
-			"name": "adffundamentalsardh_ArmTemplate_2",
+			"name": "adffundamentalsardh_ArmTemplate_3",
 			"type": "Microsoft.Resources/deployments",
 			"apiVersion": "2024-03-01",
 			"properties": {
 				"mode": "incremental",
 				"templateLink": {
-					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_2.json', parameters('containerSasToken'))]",
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_3.json', parameters('containerSasToken'))]",
 					"contentVersion": "1.0.0.0"
 				},
 				"parameters": {
@@ -180,7 +256,7 @@
 				}
 			},
 			"dependsOn": [
-				"[resourceId('Microsoft.Resources/deployments', 'adffundamentalsardh_ArmTemplate_1')]"
+				"[resourceId('Microsoft.Resources/deployments', 'adffundamentalsardh_ArmTemplate_2')]"
 			]
 		}
 	]

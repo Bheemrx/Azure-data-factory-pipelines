@@ -8,6 +8,12 @@
 		"AzureDataLakeStorage1_accountKey": {
 			"value": ""
 		},
+		"AzureDataLakeStorage2_accountKey": {
+			"value": ""
+		},
+		"AzureSqlDatabase1_password": {
+			"value": ""
+		},
 		"GitHub1_credential": {
 			"value": ""
 		},
@@ -20,8 +26,23 @@
 		"AzureDataLakeStorage1_properties_typeProperties_url": {
 			"value": "https://ardhendusa.dfs.core.windows.net/"
 		},
+		"AzureDataLakeStorage2_properties_typeProperties_url": {
+			"value": "https://ardhendusa.dfs.core.windows.net/"
+		},
+		"AzureSqlDatabase1_properties_typeProperties_server": {
+			"value": "adfsqldbbheem.database.windows.net"
+		},
+		"AzureSqlDatabase1_properties_typeProperties_database": {
+			"value": "adfsqldb"
+		},
+		"AzureSqlDatabase1_properties_typeProperties_userName": {
+			"value": "Ardhendu"
+		},
 		"GitHub1_properties_typeProperties_username": {
 			"value": "ardhendumahathaofficial@gmail.com"
+		},
+		"HttpServer1_properties_typeProperties_url": {
+			"value": "https://raw.githubusercontent.com"
 		},
 		"ONPREMLINKED2_properties_typeProperties_host": {
 			"value": "D:\\onpremsource"
@@ -30,6 +51,9 @@
 			"value": "ardhendu.mahatha123@gmail.com"
 		},
 		"httpgithub_properties_typeProperties_url": {
+			"value": "https://raw.githubusercontent.com"
+		},
+		"linkedgithub_properties_typeProperties_url": {
 			"value": "https://raw.githubusercontent.com"
 		},
 		"ls_onprem_properties_typeProperties_host": {
