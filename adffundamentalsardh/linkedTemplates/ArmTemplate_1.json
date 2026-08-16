@@ -7,9 +7,21 @@
 			"metadata": "Data Factory name",
 			"defaultValue": "adffundamentalsardh"
 		},
+		"ONPREMLINKED2_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'ONPREMLINKED2'"
+		},
 		"ls_onprem_password": {
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'ls_onprem'"
+		},
+		"ONPREMLINKED2_properties_typeProperties_host": {
+			"type": "string",
+			"defaultValue": "D:\\onpremsource"
+		},
+		"ONPREMLINKED2_properties_typeProperties_userId": {
+			"type": "string",
+			"defaultValue": "ardhendu.mahatha123@gmail.com"
 		},
 		"ls_onprem_properties_typeProperties_host": {
 			"type": "string",
@@ -24,6 +36,60 @@
 		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
 	},
 	"resources": [
+		{
+			"name": "[concat(parameters('factoryName'), '/dataflowsink1')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureDataLakeStorage1",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "dfsink1",
+						"folderPath": "dataflowsink",
+						"fileSystem": "reporting"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": []
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/dataflowsink2')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureDataLakeStorage1",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "sink2",
+						"folderPath": "dataflows",
+						"fileSystem": "reporting"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": []
+			},
+			"dependsOn": []
+		},
 		{
 			"name": "[concat(parameters('factoryName'), '/dataflowsource')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
@@ -324,6 +390,28 @@
 			"dependsOn": []
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/ONPREMLINKED2')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "FileServer",
+				"typeProperties": {
+					"host": "[parameters('ONPREMLINKED2_properties_typeProperties_host')]",
+					"userId": "[parameters('ONPREMLINKED2_properties_typeProperties_userId')]",
+					"password": {
+						"type": "SecureString",
+						"value": "[parameters('ONPREMLINKED2_password')]"
+					}
+				},
+				"connectVia": {
+					"referenceName": "bheemselfhosted",
+					"type": "IntegrationRuntimeReference"
+				}
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/ls_onprem')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
@@ -342,31 +430,6 @@
 					"referenceName": "bheemselfhosted",
 					"type": "IntegrationRuntimeReference"
 				}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/DelimitedText10')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "AzureDataLakeStorage1",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "DelimitedText",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobFSLocation",
-						"fileSystem": "onpremmultisink"
-					},
-					"columnDelimiter": ",",
-					"escapeChar": "\\",
-					"firstRowAsHeader": true,
-					"quoteChar": "\""
-				},
-				"schema": []
 			},
 			"dependsOn": []
 		},
@@ -786,177 +849,6 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/ls_onprem')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/onpremdataset')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "ls_onprem",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "DelimitedText",
-				"typeProperties": {
-					"location": {
-						"type": "FileServerLocation",
-						"fileName": "Fact_Sales_2.csv"
-					},
-					"columnDelimiter": ",",
-					"escapeChar": "\\",
-					"firstRowAsHeader": true,
-					"quoteChar": "\""
-				},
-				"schema": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/ls_onprem')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/dataflow1')]",
-			"type": "Microsoft.DataFactory/factories/dataflows",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"type": "MappingDataFlow",
-				"typeProperties": {
-					"sources": [
-						{
-							"dataset": {
-								"referenceName": "datasetcopyselected",
-								"type": "DatasetReference"
-							},
-							"name": "sourcedataflowcsv"
-						}
-					],
-					"sinks": [
-						{
-							"dataset": {
-								"referenceName": "visasinkdataset",
-								"type": "DatasetReference"
-							},
-							"name": "visacustomers"
-						},
-						{
-							"dataset": {
-								"referenceName": "mastercardsinkdataset",
-								"type": "DatasetReference"
-							},
-							"name": "mastercardsink"
-						},
-						{
-							"dataset": {
-								"referenceName": "americanexpresssinkdataset",
-								"type": "DatasetReference"
-							},
-							"name": "americanexpresssink"
-						},
-						{
-							"dataset": {
-								"referenceName": "nopaymentdetailssinkdataset",
-								"type": "DatasetReference"
-							},
-							"name": "nopaymentdetailssink"
-						}
-					],
-					"transformations": [
-						{
-							"name": "select1"
-						},
-						{
-							"name": "filter1",
-							"description": "will filter the cutomer id which is equal to 12"
-						},
-						{
-							"name": "split1"
-						},
-						{
-							"name": "derivedColumn3"
-						},
-						{
-							"name": "split2"
-						}
-					],
-					"scriptLines": [
-						"source(output(",
-						"          transaction_id as short,",
-						"          transactional_date as timestamp,",
-						"          product_id as string,",
-						"          customer_id as short,",
-						"          payment as string,",
-						"          credit_card as long,",
-						"          loyalty_card as boolean,",
-						"          cost as double,",
-						"          quantity as short,",
-						"          price as double",
-						"     ),",
-						"     allowSchemaDrift: true,",
-						"     validateSchema: false,",
-						"     ignoreNoFilesFound: false) ~> sourcedataflowcsv",
-						"sourcedataflowcsv select(mapColumn(",
-						"          transaction_id,",
-						"          transactional_date,",
-						"          product_id,",
-						"          customer_id,",
-						"          payment,",
-						"          credit_card,",
-						"          loyalty_card",
-						"     ),",
-						"     skipDuplicateMapInputs: true,",
-						"     skipDuplicateMapOutputs: true) ~> select1",
-						"select1 filter(customer_id !=12) ~> filter1",
-						"filter1 split(payment=='visa',",
-						"     payment=='mastercard',",
-						"     disjoint: false) ~> split1@(visa, mastercard, othermethods)",
-						"split1@othermethods derive(payment = coalesce(payment,'N/A')) ~> derivedColumn3",
-						"derivedColumn3 split(payment=='americanexpress',",
-						"     disjoint: false) ~> split2@(payment, nopaymentdetails)",
-						"split1@visa sink(allowSchemaDrift: true,",
-						"     validateSchema: false,",
-						"     partitionFileNames:['visacustomers'],",
-						"     umask: 0022,",
-						"     preCommands: [],",
-						"     postCommands: [],",
-						"     skipDuplicateMapInputs: true,",
-						"     skipDuplicateMapOutputs: true,",
-						"     partitionBy('hash', 1)) ~> visacustomers",
-						"split1@mastercard sink(allowSchemaDrift: true,",
-						"     validateSchema: false,",
-						"     partitionFileNames:['mastercardcustomers'],",
-						"     umask: 0022,",
-						"     preCommands: [],",
-						"     postCommands: [],",
-						"     skipDuplicateMapInputs: true,",
-						"     skipDuplicateMapOutputs: true,",
-						"     partitionBy('hash', 1)) ~> mastercardsink",
-						"split2@payment sink(allowSchemaDrift: true,",
-						"     validateSchema: false,",
-						"     partitionFileNames:['americanexpresscustomers'],",
-						"     umask: 0022,",
-						"     preCommands: [],",
-						"     postCommands: [],",
-						"     skipDuplicateMapInputs: true,",
-						"     skipDuplicateMapOutputs: true,",
-						"     partitionBy('hash', 1)) ~> americanexpresssink",
-						"split2@nopaymentdetails sink(allowSchemaDrift: true,",
-						"     validateSchema: false,",
-						"     partitionFileNames:['nopaymentdetailscustomers'],",
-						"     umask: 0022,",
-						"     preCommands: [],",
-						"     postCommands: [],",
-						"     skipDuplicateMapInputs: true,",
-						"     skipDuplicateMapOutputs: true,",
-						"     partitionBy('hash', 1)) ~> nopaymentdetailssink"
-					]
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/datasetcopyselected')]",
-				"[concat(variables('factoryId'), '/datasets/visasinkdataset')]",
-				"[concat(variables('factoryId'), '/datasets/mastercardsinkdataset')]",
-				"[concat(variables('factoryId'), '/datasets/nopaymentdetailssinkdataset')]"
 			]
 		}
 	]

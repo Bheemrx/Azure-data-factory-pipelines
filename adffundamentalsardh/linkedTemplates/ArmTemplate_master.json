@@ -15,6 +15,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'credential' of 'GitHub1'"
 		},
+		"ONPREMLINKED2_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'ONPREMLINKED2'"
+		},
 		"ls_onprem_password": {
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'ls_onprem'"
@@ -26,6 +30,14 @@
 		"GitHub1_properties_typeProperties_username": {
 			"type": "string",
 			"defaultValue": "ardhendumahathaofficial@gmail.com"
+		},
+		"ONPREMLINKED2_properties_typeProperties_host": {
+			"type": "string",
+			"defaultValue": "D:\\onpremsource"
+		},
+		"ONPREMLINKED2_properties_typeProperties_userId": {
+			"type": "string",
+			"defaultValue": "ardhendu.mahatha123@gmail.com"
 		},
 		"httpgithub_properties_typeProperties_url": {
 			"type": "string",
@@ -118,8 +130,17 @@
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
 					},
+					"ONPREMLINKED2_password": {
+						"value": "[parameters('ONPREMLINKED2_password')]"
+					},
 					"ls_onprem_password": {
 						"value": "[parameters('ls_onprem_password')]"
+					},
+					"ONPREMLINKED2_properties_typeProperties_host": {
+						"value": "[parameters('ONPREMLINKED2_properties_typeProperties_host')]"
+					},
+					"ONPREMLINKED2_properties_typeProperties_userId": {
+						"value": "[parameters('ONPREMLINKED2_properties_typeProperties_userId')]"
 					},
 					"ls_onprem_properties_typeProperties_host": {
 						"value": "[parameters('ls_onprem_properties_typeProperties_host')]"

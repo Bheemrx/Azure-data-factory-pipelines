@@ -11,6 +11,9 @@
 		"GitHub1_credential": {
 			"value": ""
 		},
+		"ONPREMLINKED2_password": {
+			"value": ""
+		},
 		"ls_onprem_password": {
 			"value": ""
 		},
@@ -19,6 +22,12 @@
 		},
 		"GitHub1_properties_typeProperties_username": {
 			"value": "ardhendumahathaofficial@gmail.com"
+		},
+		"ONPREMLINKED2_properties_typeProperties_host": {
+			"value": "D:\\onpremsource"
+		},
+		"ONPREMLINKED2_properties_typeProperties_userId": {
+			"value": "ardhendu.mahatha123@gmail.com"
 		},
 		"httpgithub_properties_typeProperties_url": {
 			"value": "https://raw.githubusercontent.com"
