@@ -134,10 +134,27 @@
 				"dependsOn": [],
 				"userProperties": [],
 				"typeProperties": {
-					"isSequential": true
+					"isSequential": false,
+					"batchCount": 50
 				}
 			}
 		],
+		"parameters": {
+			"files": {
+				"type": "array",
+				"defaultValue": [
+					{
+						"filename": "DimPassenger.csv"
+					},
+					{
+						"filename": "DimPassenger.csv"
+					},
+					{
+						"filename": "DimPassenger.csv"
+					}
+				]
+			}
+		},
 		"annotations": []
 	}
 }
