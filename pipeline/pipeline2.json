@@ -39,7 +39,7 @@
 					},
 					"enableStaging": false,
 					"translator": {
-						"value": "@json('{\n            \"type\": \"TabularTranslator\",\n            \"mappings\": [\n                {\n                    \"source\": {\n                        \"name\": \"passenger_id\",\n                        \"type\": \"String\",\n                        \"physicalType\": \"String\"\n                    },\n                    \"sink\": {\n                        \"name\": \"passenger_id\",\n                        \"type\": \"String\",\n                        \"physicalType\": \"String\"\n                    }\n                },\n                {\n                    \"source\": {\n                        \"name\": \"full_name\",\n                        \"type\": \"String\",\n                        \"physicalType\": \"String\"\n                    },\n                    \"sink\": {\n                        \"name\": \"full_name\",\n                        \"type\": \"String\",\n                        \"physicalType\": \"String\"\n                    }\n                },\n                {\n                    \"source\": {\n                        \"name\": \"gender\",\n                        \"type\": \"String\",\n                        \"physicalType\": \"String\"\n                    },\n                    \"sink\": {\n                        \"name\": \"gender\",\n                        \"type\": \"String\",\n                        \"physicalType\": \"String\"\n                    }\n                },\n                {\n                    \"source\": {\n                        \"name\": \"age\",\n                        \"type\": \"String\",\n                        \"physicalType\": \"String\"\n                    },\n                    \"sink\": {\n                        \"name\": \"age\",\n                        \"type\": \"String\",\n                        \"physicalType\": \"String\"\n                    }\n                },\n                {\n                    \"source\": {\n                        \"name\": \"country\",\n                        \"type\": \"String\",\n                        \"physicalType\": \"String\"\n                    },\n                    \"sink\": {\n                        \"name\": \"country\",\n                        \"type\": \"String\",\n                        \"physicalType\": \"String\"\n                    }\n                }\n            ],\n            \"typeConversion\": true,\n            \"typeConversionSettings\": {\n                \"allowDataTruncation\": true,\n                \"treatBooleanAsNumber\": false\n            }\n        }')",
+						"value": "@json('{\n            \"type\": \"TabularTranslator\",\n            \"mappings\": [\n                {\n                    \"source\": {\n                        \"name\": \"flight_id\",\n                        \"type\": \"String\",\n                        \"physicalType\": \"String\"\n                    },\n                    \"sink\": {\n                        \"name\": \"flight_id\",\n                        \"type\": \"String\",\n                        \"physicalType\": \"String\"\n                    }\n                },\n                {\n                    \"source\": {\n                        \"name\": \"flight_number\",\n                        \"type\": \"String\",\n                        \"physicalType\": \"String\"\n                    },\n                    \"sink\": {\n                        \"name\": \"flight_number\",\n                        \"type\": \"String\",\n                        \"physicalType\": \"String\"\n                    }\n                },\n                {\n                    \"source\": {\n                        \"name\": \"departure_time\",\n                        \"type\": \"String\",\n                        \"physicalType\": \"String\"\n                    },\n                    \"sink\": {\n                        \"name\": \"departure_time\",\n                        \"type\": \"String\",\n                        \"physicalType\": \"String\"\n                    }\n                },\n                {\n                    \"source\": {\n                        \"name\": \"arrival_time\",\n                        \"type\": \"String\",\n                        \"physicalType\": \"String\"\n                    },\n                    \"sink\": {\n                        \"name\": \"arrival_time\",\n                        \"type\": \"String\",\n                        \"physicalType\": \"String\"\n                    }\n                }\n            ],\n            \"typeConversion\": true,\n            \"typeConversionSettings\": {\n                \"allowDataTruncation\": true,\n                \"treatBooleanAsNumber\": false\n            }\n        }')",
 						"type": "Expression"
 					}
 				},
@@ -48,7 +48,7 @@
 						"referenceName": "ds_onprem_src_param",
 						"type": "DatasetReference",
 						"parameters": {
-							"file_name": "DimPassenger.csv"
+							"file_name": "DimFlight.csv"
 						}
 					}
 				],
@@ -57,7 +57,7 @@
 						"referenceName": "DelimitedText11",
 						"type": "DatasetReference",
 						"parameters": {
-							"file_name": "DimPassenger.csv"
+							"file_name": "DimFlight.csv"
 						}
 					}
 				]
