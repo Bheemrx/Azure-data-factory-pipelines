@@ -123,10 +123,7 @@
 						"referenceName": "DelimitedText11",
 						"type": "DatasetReference",
 						"parameters": {
-							"file_name": {
-								"value": "@item().filename",
-								"type": "Expression"
-							}
+							"file_name": "DimPassenger.csv"
 						}
 					}
 				]
