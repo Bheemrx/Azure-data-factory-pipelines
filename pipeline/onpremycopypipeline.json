@@ -147,10 +147,10 @@
 						"filename": "DimPassenger.csv"
 					},
 					{
-						"filename": "DimPassenger.csv"
+						"filename": "DimAirline.csv"
 					},
 					{
-						"filename": "DimPassenger.csv"
+						"filename": "DimFlight.csv"
 					}
 				]
 			}
