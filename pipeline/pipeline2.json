@@ -48,7 +48,7 @@
 						"referenceName": "ds_onprem_src_param",
 						"type": "DatasetReference",
 						"parameters": {
-							"file_name": "DimAirline.csv"
+							"file_name": "DimPassenger.csv"
 						}
 					}
 				],
@@ -57,7 +57,7 @@
 						"referenceName": "DelimitedText11",
 						"type": "DatasetReference",
 						"parameters": {
-							"file_name": "DimAirline.csv"
+							"file_name": "DimPassenger.csv"
 						}
 					}
 				]
