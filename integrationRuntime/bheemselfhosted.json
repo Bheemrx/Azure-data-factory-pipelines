@@ -1,0 +1,9 @@
+{
+	"name": "bheemselfhosted",
+	"properties": {
+		"type": "SelfHosted",
+		"typeProperties": {
+			"selfContainedInteractiveAuthoringEnabled": false
+		}
+	}
+}

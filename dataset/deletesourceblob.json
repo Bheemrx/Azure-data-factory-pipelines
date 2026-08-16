@@ -1,0 +1,19 @@
+{
+	"name": "deletesourceblob",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureDataLakeStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Binary",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "Fact_Sales_1.csv",
+				"folderPath": "ardhendu/bheem",
+				"fileSystem": "files"
+			}
+		}
+	}
+}
