@@ -1,0 +1,22 @@
+{
+	"name": "copyonpremdATASET",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ONPREMLINKED2",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "FileServerLocation",
+				"fileName": "DimPassenger.csv"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": []
+	}
+}
