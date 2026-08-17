@@ -33,7 +33,11 @@
 					"name": "FactBookings"
 				}
 			],
-			"sinks": [],
+			"sinks": [
+				{
+					"name": "sink1"
+				}
+			],
 			"transformations": [
 				{
 					"name": "join1"
@@ -43,6 +47,9 @@
 				},
 				{
 					"name": "aggregate1"
+				},
+				{
+					"name": "window1"
 				}
 			],
 			"scriptLines": [
@@ -106,7 +113,13 @@
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> select1",
 				"select1 aggregate(groupBy(airline_name),",
-				"     Total_cost = sum(ticket_cost)) ~> aggregate1"
+				"     Total_cost = sum(ticket_cost)) ~> aggregate1",
+				"aggregate1 window(desc(Total_cost, true),",
+				"     top = denseRank()) ~> window1",
+				"window1 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> sink1"
 			]
 		}
 	}
