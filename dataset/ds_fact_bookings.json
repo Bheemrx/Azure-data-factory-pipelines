@@ -1,0 +1,24 @@
+{
+	"name": "ds_fact_bookings",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureDataLakeStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "data_eee7ab11-74e5-4a7c-ba5a-21a9fd5a687d_1478d12a-3f30-452e-8e31-419b2296a5da.txt",
+				"folderPath": "sqlsink",
+				"fileSystem": "reporting"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": []
+	}
+}
