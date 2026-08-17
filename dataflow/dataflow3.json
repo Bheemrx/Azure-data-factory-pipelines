@@ -34,9 +34,27 @@
 				}
 			],
 			"sinks": [],
-			"transformations": [],
+			"transformations": [
+				{
+					"name": "join1"
+				},
+				{
+					"name": "select1"
+				},
+				{
+					"name": "aggregate1"
+				},
+				{
+					"name": "derivedColumn1"
+				}
+			],
 			"scriptLines": [
-				"source(allowSchemaDrift: true,",
+				"source(output(",
+				"          airline_id as short,",
+				"          airline_name as string,",
+				"          country as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     ignoreNoFilesFound: false,",
 				"     format: 'delta',",
@@ -48,18 +66,51 @@
 				"     format: 'delta',",
 				"     fileSystem: 'silver',",
 				"     folderPath: 'DimPassenger') ~> DimPassenger",
-				"source(allowSchemaDrift: true,",
+				"source(output(",
+				"          flight_id as short,",
+				"          flight_number as string,",
+				"          arrival_time as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     ignoreNoFilesFound: false,",
 				"     format: 'delta',",
 				"     fileSystem: 'silver',",
 				"     folderPath: 'DimFlight') ~> DimFlights",
-				"source(allowSchemaDrift: true,",
+				"source(output(",
+				"          booking_id as short,",
+				"          passenger_id as short,",
+				"          flight_id as short,",
+				"          airline_id as short,",
+				"          booking_date as string,",
+				"          ticket_cost as double",
+				"     ),",
+				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     ignoreNoFilesFound: false,",
 				"     format: 'delta',",
 				"     fileSystem: 'silver',",
-				"     folderPath: 'FactBookings') ~> FactBookings"
+				"     folderPath: 'FactBookings') ~> FactBookings",
+				"FactBookings, DimAirlines join(FactBookings@airline_id == DimAirlines@airline_id,",
+				"     joinType:'left',",
+				"     matchType:'exact',",
+				"     ignoreSpaces: false,",
+				"     broadcast: 'auto')~> join1",
+				"join1 select(mapColumn(",
+				"          booking_id,",
+				"          passenger_id,",
+				"          flight_id,",
+				"          airline_id = FactBookings@airline_id,",
+				"          booking_date,",
+				"          ticket_cost,",
+				"          airline_name,",
+				"          country",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select1",
+				"select1 aggregate(groupBy(airline_name),",
+				"     Total_cost = sum(ticket_cost)) ~> aggregate1",
+				"aggregate1 derive(column1 = ERROR_FUNCTION('')) ~> derivedColumn1"
 			]
 		}
 	}
