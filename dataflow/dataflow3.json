@@ -43,9 +43,6 @@
 				},
 				{
 					"name": "aggregate1"
-				},
-				{
-					"name": "derivedColumn1"
 				}
 			],
 			"scriptLines": [
@@ -109,8 +106,7 @@
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> select1",
 				"select1 aggregate(groupBy(airline_name),",
-				"     Total_cost = sum(ticket_cost)) ~> aggregate1",
-				"aggregate1 derive(column1 = ERROR_FUNCTION('')) ~> derivedColumn1"
+				"     Total_cost = sum(ticket_cost)) ~> aggregate1"
 			]
 		}
 	}
