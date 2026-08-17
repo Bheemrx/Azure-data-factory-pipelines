@@ -11,5 +11,6 @@
 			"relativeUrl": "Bheemrx/csvfiles/refs/heads/main/customers-100.csv"
 		},
 		"schema": []
-	}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
 }
