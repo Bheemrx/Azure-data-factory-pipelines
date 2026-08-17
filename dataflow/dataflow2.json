@@ -146,12 +146,20 @@
 				"     insertable: false,",
 				"     updateable: false,",
 				"     upsertable: true,",
-				"     keys:['passenger_id'],",
+				"     keys:['first_name'],",
 				"     umask: 0022,",
 				"     preCommands: [],",
 				"     postCommands: [],",
 				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true) ~> sink1"
+				"     skipDuplicateMapOutputs: true,",
+				"     mapColumn(",
+				"          passenger_id,",
+				"          first_name,",
+				"          last_name,",
+				"          gender_flag,",
+				"          age,",
+				"          country",
+				"     )) ~> sink1"
 			]
 		}
 	}
