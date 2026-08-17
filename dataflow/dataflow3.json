@@ -33,11 +33,7 @@
 					"name": "FactBookings"
 				}
 			],
-			"sinks": [
-				{
-					"name": "sink1"
-				}
-			],
+			"sinks": [],
 			"transformations": [
 				{
 					"name": "join1"
@@ -50,6 +46,9 @@
 				},
 				{
 					"name": "window1"
+				},
+				{
+					"name": "filtertop5"
 				}
 			],
 			"scriptLines": [
@@ -116,10 +115,7 @@
 				"     Total_cost = sum(ticket_cost)) ~> aggregate1",
 				"aggregate1 window(desc(Total_cost, true),",
 				"     top = denseRank()) ~> window1",
-				"window1 sink(allowSchemaDrift: true,",
-				"     validateSchema: false,",
-				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true) ~> sink1"
+				"window1 filter(top<6) ~> filtertop5"
 			]
 		}
 	}
