@@ -33,7 +33,15 @@
 					"name": "FactBookings"
 				}
 			],
-			"sinks": [],
+			"sinks": [
+				{
+					"linkedService": {
+						"referenceName": "AzureDataLakeStorage1",
+						"type": "LinkedServiceReference"
+					},
+					"name": "sinkgold"
+				}
+			],
 			"transformations": [
 				{
 					"name": "join1"
@@ -49,6 +57,9 @@
 				},
 				{
 					"name": "filtertop5"
+				},
+				{
+					"name": "alterRow1"
 				}
 			],
 			"scriptLines": [
@@ -115,7 +126,28 @@
 				"     Total_cost = sum(ticket_cost)) ~> aggregate1",
 				"aggregate1 window(desc(Total_cost, true),",
 				"     top = denseRank()) ~> window1",
-				"window1 filter(top<6) ~> filtertop5"
+				"window1 filter(top<6) ~> filtertop5",
+				"filtertop5 alterRow(upsertIf(0==0)) ~> alterRow1",
+				"alterRow1 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     format: 'delta',",
+				"     fileSystem: 'gold',",
+				"     folderPath: 'businessviewairlines',",
+				"     overwrite: true,",
+				"     mergeSchema: false,",
+				"     autoCompact: false,",
+				"     optimizedWrite: false,",
+				"     vacuum: 0,",
+				"     deletable: false,",
+				"     insertable: false,",
+				"     updateable: false,",
+				"     upsertable: true,",
+				"     keys:['airline_name'],",
+				"     umask: 0022,",
+				"     preCommands: [],",
+				"     postCommands: [],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> sinkgold"
 			]
 		}
 	}
