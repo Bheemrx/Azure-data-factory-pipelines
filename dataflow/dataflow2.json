@@ -26,8 +26,47 @@
 					"name": "DimAirlines"
 				}
 			],
-			"sinks": [],
-			"transformations": [],
+			"sinks": [
+				{
+					"linkedService": {
+						"referenceName": "AzureDataLakeStorage1",
+						"type": "LinkedServiceReference"
+					},
+					"name": "sink1"
+				}
+			],
+			"transformations": [
+				{
+					"name": "derivedColumncountry"
+				},
+				{
+					"name": "selectremovedepttime"
+				},
+				{
+					"name": "derivedColumn1"
+				},
+				{
+					"name": "select1"
+				},
+				{
+					"name": "derivedColumn2"
+				},
+				{
+					"name": "derivedColumn3"
+				},
+				{
+					"name": "filter1"
+				},
+				{
+					"name": "derivedname"
+				},
+				{
+					"name": "rearrangecolumns"
+				},
+				{
+					"name": "alterRow1"
+				}
+			],
 			"scriptLines": [
 				"source(output(",
 				"          passenger_id as string,",
@@ -55,7 +94,60 @@
 				"     ),",
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
-				"     ignoreNoFilesFound: false) ~> DimAirlines"
+				"     ignoreNoFilesFound: false) ~> DimAirlines",
+				"DimPassenger derive(country = upper(country)) ~> derivedColumncountry",
+				"Dimflight select(mapColumn(",
+				"          flight_id,",
+				"          flight_number,",
+				"          arrival_time",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> selectremovedepttime",
+				"DimAirlines derive(country = upper(country)) ~> derivedColumn1",
+				"derivedColumncountry select(mapColumn(",
+				"          passenger_id,",
+				"          full_name,",
+				"          gender_flag = gender,",
+				"          age,",
+				"          country",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select1",
+				"select1 derive(gender_flag = regexReplace(gender_flag,'M','Male')) ~> derivedColumn2",
+				"derivedColumn2 derive(gender_flag = regexReplace(gender_flag,'F','Female')) ~> derivedColumn3",
+				"derivedColumn3 filter(toInteger(age)> 25 && lower(country) !='mexico') ~> filter1",
+				"filter1 derive(first_name = split(full_name,' ')[1],",
+				"          last_name = split(full_name,' ')[2]) ~> derivedname",
+				"derivedname select(mapColumn(",
+				"          passenger_id,",
+				"          first_name,",
+				"          last_name,",
+				"          gender_flag,",
+				"          age,",
+				"          country",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> rearrangecolumns",
+				"rearrangecolumns alterRow(upsertIf(0==0)) ~> alterRow1",
+				"alterRow1 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     format: 'delta',",
+				"     fileSystem: 'silver',",
+				"     folderPath: 'DimPassenger',",
+				"     mergeSchema: false,",
+				"     autoCompact: false,",
+				"     optimizedWrite: false,",
+				"     vacuum: 0,",
+				"     deletable: false,",
+				"     insertable: false,",
+				"     updateable: false,",
+				"     upsertable: true,",
+				"     keys:[(passenger_id)],",
+				"     umask: 0022,",
+				"     preCommands: [],",
+				"     postCommands: [],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> sink1"
 			]
 		}
 	}
